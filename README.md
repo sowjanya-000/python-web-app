@@ -1,4 +1,4 @@
-# Azure Web App — Python + GitHub Actions
+# Azure Web App - Python + GitHub Actions
 
 A Python Flask web app configured for deployment to Azure App Service via GitHub Actions CI/CD.
 
