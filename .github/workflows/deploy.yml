@@ -10,7 +10,7 @@ on:
 
 env:
   PYTHON_VERSION: '3.12'
-  AZURE_WEBAPP_NAME: your-app-name   # ← Replace with your Azure Web App name
+  AZURE_WEBAPP_NAME: mywebapp-py-0814   # ← Replace with your Azure Web App name
 
 jobs:
   # ─────────────────────────────────────────
