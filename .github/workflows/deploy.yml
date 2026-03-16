@@ -1,12 +1,10 @@
-name: Build and Deploy to Azure Web App
+name: Build and Deploy — TaskFlow
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 env:
   PYTHON_VERSION: '3.12'
@@ -14,17 +12,16 @@ env:
 
 jobs:
   # ─────────────────────────────────────────
-  # Job 1: Run Tests
+  # Job 1: Test
   # ─────────────────────────────────────────
   test:
     name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
@@ -37,9 +34,11 @@ jobs:
 
       - name: Run tests
         run: pytest test_app.py -v
+        env:
+          SECRET_KEY: test-secret-key
 
   # ─────────────────────────────────────────
-  # Job 2: Deploy (only on push to main)
+  # Job 2: Deploy (main branch only)
   # ─────────────────────────────────────────
   deploy:
     name: Deploy to Azure
@@ -48,10 +47,9 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ env.PYTHON_VERSION }}
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
